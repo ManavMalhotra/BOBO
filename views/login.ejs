@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Form</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h2>Login Form</h2>
+  <form method="POST" action="/api/login">
+    <label>Mobile Number:</label>
+    <input type="number" name="mobileNumber" required>
+
+    <button type="submit" id="getOtpBtn">Get OTP</button>
+
+  </form>
+
+  	<form id="otp-form" method="POST" action="/api/login/verify">
+		<h2>Enter OTP</h2>
+		<p>Please enter the OTP you received on your mobile number</p>
+  		<label>Mobile Number:</label>
+    <input type="number" name="mobileNumber" required>
+		<input type="text" placeholder="Enter OTP" name="code" required>
+		<input type="submit" value="Submit">
+	</form>
+
+	<script>
+
+	const getOtpBtn = document.getElementById("getOtpBtn");
+  getOtpBtn.addEventListener("click", function(event) {
+   
+    
+  });
+  
+  function handleGetOtp() {
+    // code to handle submission and display OTP goes here
+  }
+
+		// const form = document.getElementById('otp-form');
+
+		// form.addEventListener('submit', (e) => {
+		// 	e.preventDefault();
+		// 	const otpValue = document.querySelector('input[name="otp"]').value;
+		// 	// Do something with the OTP value, e.g. send it to server for verification
+		// });
+	</script>
+
+</body>
+</html>

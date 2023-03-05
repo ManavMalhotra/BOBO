@@ -50,7 +50,7 @@ loginRouter.post('/', async (req, res) => {
 				error: "invalid username or password"
 			})
 		}
-	} catch (e){
+	} catch (e) {
 		console.log(e)
 	}
 

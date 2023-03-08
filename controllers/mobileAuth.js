@@ -17,7 +17,11 @@ const client = require('twilio')(twilioSid, twilioToken)
 
 mobileAuthRouter.post('/', async (req, res) => {
 
-	if (req.body.mobileNumber && (req.body.code).length === 6) {
+	try{
+		console.log(req.body.mobileNumber)
+		console.log(req.body.otp)
+
+	if (req.body.mobileNumber && (req.body.otp).length === 6) {
 
 		const mobileNumber = req.body.mobileNumber
 
@@ -26,16 +30,19 @@ mobileAuthRouter.post('/', async (req, res) => {
 				mobileNumber
 			})
 
+			console.log(mobileNumber)
+			console.log(user)
+
 			client
-				.verify.v2
-				.services(twilioServiceSid)
+				.verify.v2.services(twilioServiceSid)
 				.verificationChecks
 				.create({
 					to: `+${mobileNumber}`,
-					code: req.body.code
+					code: req.body.otp
 				})
 				.then(data => {
 					if (data.status === "approved") {
+
 						const token = jwt.sign({
 							id: user._id,
 							verified: true
@@ -58,11 +65,13 @@ mobileAuthRouter.post('/', async (req, res) => {
 		}
 	} else {
 		res.status(400).send({
-			message: "Wrong phone number or code :(",
-			phonenumber: req.body.mobileNumber,
-			data
+			message: "Wrong mobile number or OTP code :(",
+			mobileNumber: req.body.mobileNumber
 		})
 	}
+}catch(e){
+	console.log(e)
+}
 
 })
 

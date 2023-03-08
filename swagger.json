@@ -168,7 +168,7 @@
         }
       }
     },
-    "/auth/verify": {
+    "/auth/mobile-verify": {
       "post": {
         "description": "Verify user's mobile number with OTP",
         "tags": [
@@ -188,8 +188,8 @@
                   "example": 9188888888
                 },
                 "otp": {
-                  "type": "string",
-                  "example": "123456"
+                  "type": "number",
+                  "example": 123456
                 }
               }
             }
@@ -203,7 +203,7 @@
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "User is verified"
+                  "example": "User is Verified!!"
                 },
                 "token": {
                   "type": "string",

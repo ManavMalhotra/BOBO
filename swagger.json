@@ -1,0 +1,238 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "User Authentication API",
+    "description": "An API for user authentication",
+    "version": "1.0.0"
+  },
+  "basePath": "/api",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "User Registration",
+        "description": "Register a new user",
+        "tags": [
+          "User Authentication"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "The user information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mobileNumber": {
+                  "type": "Number",
+                  "example": "9188888888"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "John Doe"
+                },
+                "language": {
+                  "type": "string",
+                  "example": "en"
+                },
+                "gamePlayTime": {
+                  "type": "Number",
+                  "example": "100"
+                },
+                "username": {
+                  "type": "string",
+                  "example": "JohnDoe"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful registration",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User registered successfully"
+                },
+                "savedUser": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "64082572c4318794832ec787"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "John Doe"
+                    },
+                    "username": {
+                      "type": "string",
+                      "example": "JohnDoe"
+                    },
+                    "mobileNumber": {
+                      "type": "number",
+                      "example": 9188888888
+                    },
+                    "language": {
+                      "type": "string",
+                      "example": "en"
+                    },
+                    "gamePlayTime": {
+                      "type": "number",
+                      "example": 100
+                    },
+                    "__v": {
+                      "type": "number",
+                      "example": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Username must be unique",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Username must be unique"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "User login",
+        "description": "Authenticate a user by Mobile Number",
+        "tags": [
+          "User Authentication"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "User Credentials",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mobileNumber": {
+                  "type": "Number",
+                  "example": "91888888888"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Verification is sent!!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "String",
+                  "example": "Verification is sent!!"
+                },
+                "username": {
+                  "type": "string",
+                  "example": "JohnDoe"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Mobile Number",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Invalid Mobile Number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/verify": {
+      "post": {
+        "description": "Verify user's mobile number with OTP",
+        "tags": [
+          "User Authentication"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "The user information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mobileNumber": {
+                  "type": "number",
+                  "example": 9188888888
+                },
+                "otp": {
+                  "type": "string",
+                  "example": "123456"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User is verified",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User is verified"
+                },
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Wrong phone number or code",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Wrong phone number or code :("
+                },
+                "phonenumber": {
+                  "type": "number",
+                  "example": 9188888888
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

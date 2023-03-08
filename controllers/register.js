@@ -19,7 +19,7 @@ handleRegister.post('/', async (req, res) => {
 	try {
 		if (existingUser) {
 			return res.status(400).json({
-				error: 'username must be unique'
+				error: 'Username must be unique'
 			})
 		} else {
 			const user = new User({
@@ -32,7 +32,10 @@ handleRegister.post('/', async (req, res) => {
 
 			const savedUser = await user.save()
 
-			res.status(201).json(savedUser)
+			res.status(201).json({
+				message:"User registered successfully",
+				savedUser
+			})
 		}
 	} catch (e) {
 		console.log(e)

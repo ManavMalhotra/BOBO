@@ -3,11 +3,14 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const app = express();
-const loginRouter = require('./controllers/login');
-const registerRouter = require('./controllers/register');
+const authRouter = require('./controllers/authRouter');
+
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken')
 const User = require('./models/user')
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
 
 mongoose
 	.connect(config.MONGODB_URI)
@@ -29,8 +32,10 @@ app.use(express.urlencoded({
 	extended: true
 }));
 
-app.use('/api/login', loginRouter)
-app.use('/api/register', registerRouter)
+app.use("/api/auth",authRouter)
+
+app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 app.get('/', async (req, res) => {
 
